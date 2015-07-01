@@ -29,7 +29,7 @@
       padding-right: 0 !important;
     }
 
-    .image-well img.thumb {
+    .news-well img.thumb, .image-well img.thumb {
       width: 100%;
     }
 
@@ -112,8 +112,18 @@
       <div class="container">
         <div class="row row-eq-height">
           <div class="col-md-6">
-            <div class="well">
-            <p>{{ news.text }}</p>
+            <div class="well news-well">
+            {% if news.imageUrl %}
+            <img src="{{ news.imageUrl | safe }}" class="thumb" />
+            {% endif %}
+            {% if news.title %}
+            <h2>{{ news.title }}</h2>
+            {% endif %}
+            <small>{{ news.date }}</small>
+            {% if news.leadtext %}
+            <p>{{ news.leadtext }}</p>
+            {% endif %}
+            <!-- <p>{{ news | json | safe }}</p> -->
             </div>
           </div>
           <div class="col-md-6">

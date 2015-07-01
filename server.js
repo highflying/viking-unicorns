@@ -2,6 +2,7 @@ var express = require("express");
 var swig    = require("swig");
 var restify = require('restify');
 var async   = require("async");
+var moment  = require("moment");
 
 var app = express();
 
@@ -97,15 +98,34 @@ function getVideos(query, callback) {
   });
 }
 
+
 function getNews(query, callback) {
   var client = restify.createJsonClient({
-    url: perlApiBaseUrl,
+    url: apiBaseUrl,
   });
    
-  client.get("/v1/article/" + encodeURIComponent(query), function (err, req, res, data) {
-    return callback(null, data || {});
+  client.get("/article/" + encodeURIComponent(query), function (err, req, res, data) {
+    if(err || !data) {
+      return callback(null, {});
+    }
+
+    if(data.date) {
+      data.date = moment(data.date).format("Do MMMM YYYY");
+    }
+
+    return callback(null, data);
   });
 }
+
+// function getNews(query, callback) {
+//   var client = restify.createJsonClient({
+//     url: perlApiBaseUrl,
+//   });
+   
+//   client.get("/v1/article/" + encodeURIComponent(query), function (err, req, res, data) {
+//     return callback(null, data || {});
+//   });
+// }
 
 
 function getAdverts(query, callback) {
