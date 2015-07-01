@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "./node_modules/bower/bin/bower install && cd bower_components/bootstrap-material-design && npm install && grunt"
+    "postinstall": "./node_modules/bower/bin/bower install && cd bower_components/bootstrap-material-design && ls -l && npm install && grunt"
   },
   "repository": {
     "type": "git",
