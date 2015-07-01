@@ -42,6 +42,9 @@ function homePage(req, res) {
       },
       function (asyncCallback) {
         return getVideos(tag, asyncCallback);
+      },
+      function (asyncCallback) {
+        return getMusic(tag, asyncCallback);
       }
     ],
     function (err, results) {
@@ -53,6 +56,7 @@ function homePage(req, res) {
       res.locals.news    = results[1];
       res.locals.adverts = results[2].adverts;
       res.locals.videos = results[3];
+      res.locals.music = results[4];
 
       if(res.locals.adverts) {
         var i = parseInt(Math.random() * res.locals.adverts.length);
@@ -114,6 +118,16 @@ function getNews(query, callback) {
     }
 
     return callback(null, data);
+  });
+}
+
+function getMusic(query, callback) {
+  var client = restify.createJsonClient({
+    url: apiBaseUrl,
+  });
+   
+  client.get("/soundcloud/" + encodeURIComponent(query), function (err, req, res, data) {
+    return callback(null, data || {});
   });
 }
 
