@@ -123,6 +123,7 @@
             {% if news.leadtext %}
             <p>{{ news.leadtext }}</p>
             {% endif %}
+            {{ news.content | safe }}
             <!-- <p>{{ news | json | safe }}</p> -->
             </div>
           </div>
