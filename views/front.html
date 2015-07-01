@@ -49,6 +49,46 @@
     .navbar {
       line-height: 45px;
     }
+
+    @keyframes rotation {
+        0% {
+            transform: rotate(0);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    .spinner {
+        animation: rotation 0.8s infinite linear;
+    }
+
+    div.reload-page {
+      display: block;
+      background-color: #72e9ca;
+      border-radius: 50%;
+      width: 64px;
+      height: 64px;
+      color: #ffffff;
+      font-size: 32px;
+      position: absolute; 
+        top: 48px;  
+        left: 50%;  
+        margin-left: -32px; 
+        text-align: center;
+        line-height: 40px;
+    }
+
+    a.reload-page {
+      color: #ffffff;
+      font-size: 32px;
+    }
+    i.reload-page {
+      margin-top: 15px;
+    }
+
+    body { padding-top: 132px; }
+
   </style>
 
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -59,7 +99,7 @@
       <![endif]-->
     </head>
     <body>
-      <div class="navbar navbar-default">
+      <div class="navbar navbar-default navbar-fixed-top">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
             <span class="icon-bar"></span>
@@ -69,6 +109,11 @@
           <a class="navbar-brand" href="/"><img src="/img/logo.png" width="80" height="80" alt="Viking Unicorns" title="Viking Unicorns" /></a>
         </div>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
+        <div class="reload-page">
+          <a class="reload-page" href="/search/?q={{ query }}">
+          <i class="glyphicon glyphicon-refresh reload-page"></i>
+          </a>
+          </div>
 <!--           <ul class="nav navbar-nav">
             <li class="active"><a href="javascript:void(0)">Active</a></li>
             <li><a href="javascript:void(0)">Link</a></li>
@@ -93,6 +138,8 @@
 
             </div>
           </form>
+
+
 <!--           <ul class="nav navbar-nav navbar-right">
             <li><a href="javascript:void(0)">Link</a></li>
             <li class="dropdown">
@@ -215,6 +262,11 @@
     	
     	}).resize();
     });
+      $(function() {
+        $('a.reload-page').click(function (e) {
+          $('i.reload-page').addClass('spinner');
+        });
+      });
     </script>
     </body>
     </html>
