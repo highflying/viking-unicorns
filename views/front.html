@@ -101,14 +101,14 @@
     <body>
       <div class="navbar navbar-default navbar-fixed-top">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+<!--           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
-          </button>
+          </button> -->
           <a class="navbar-brand" href="/"><img src="/img/logo.png" width="80" height="80" alt="Viking Unicorns" title="Viking Unicorns" /></a>
         </div>
-        <div class="navbar-collapse collapse navbar-responsive-collapse">
+        <!-- <div class="navbar-collapse collapse navbar-responsive-collapse"> -->
         <div class="reload-page">
           <a class="reload-page" href="/search/?q={{ query }}">
           <i class="glyphicon glyphicon-refresh reload-page"></i>
@@ -132,7 +132,7 @@
           </ul> -->
           <form class="navbar-form navbar-left" method="get" action="/search/">
           <div class="input-group">
-            <input name="q" type="text" class="form-control col-lg-8" placeholder="Search" value="{{ query }}">
+            <input name="q" type="text" class="form-control col-md-8" placeholder="Search" value="{{ query }}">
               <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 </span>
 
@@ -153,11 +153,11 @@
               </ul>
             </li>
           </ul> -->
-        </div>
+        <!-- </div> -->
       </div>
 
       <div class="container">
-        <div class="row row-eq-height">
+        <div class="row">
           <div class="col-md-6">
             <div class="well news-well">
             {% if news.imageUrl %}
@@ -176,13 +176,24 @@
           </div>
           <div class="col-md-6">
             <div class="row">
-              <div class="col-md-12">
+              <div class="col-md-6">
                 <div class="well image-well clearfix">
                   <img src="{{ images.display_sizes[0].uri }}" class="thumb" />
                   <div class="logo pull-right">
                     <img src="/img/gettyimages.svg" height="30" />
                   </div>
                   <p>{{ images.title }}</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="well text-center">
+                  <a href="{{ advert.redirect_url | safe }}"><img src="{{ advert.image_url | safe }}" /></a><br />
+                  <p>{{ advert.name | safe }}</p>
+                  &euro;{{ advert.price }}
+                  {% if advert.has_discount && advert.old_price %}
+                  (was &euro;{{ advert.old_price }})
+                  {% endif %}
+                  <!-- {{ advert | json | safe }} -->
                 </div>
               </div>
             </div>
@@ -204,25 +215,6 @@
                     <img src="/img/youtube.png" height="30" />
                   </div>
                   <p>{{ videos.title }}</p>
-                </div>
-              </div>
-            </div>
-            
-            <div class="row">
-              <div class="col-md-6">
-                <div class="well advert-well">
-                  <img src="/img/advert.png" />
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="well text-center">
-                  <a href="{{ advert.redirect_url | safe }}"><img src="{{ advert.image_url | safe }}" /></a><br />
-                  <p>{{ advert.name | safe }}</p>
-                  &euro;{{ advert.price }}
-                  {% if advert.has_discount && advert.old_price %}
-                  (was &euro;{{ advert.old_price }})
-                  {% endif %}
-                  <!-- {{ advert | json | safe }} -->
                 </div>
               </div>
             </div>
