@@ -16,8 +16,14 @@ if(app.get("env") === "development") {
   swig.setDefaults({ cache: false });
 }
 
-app.get("/:tag?", homePage);
-app.get("/", homePage);
+app.get("/", entryPage);
+app.get("/search/:tag?", homePage);
+app.get("/search/", homePage);
+
+
+function entryPage(req, res){
+  return res.render("index.html");
+}
 
 function homePage(req, res) {
   var tag = req.params.tag || req.query.q || "cats";
