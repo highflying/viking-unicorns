@@ -114,6 +114,21 @@
                 </div>
               </div>
             </div>
+            
+        
+            <div class="row">
+              <div class="col-md-12">
+                <div class="well videos-well clearfix">
+                  <iframe width='560' height='315' src="https://www.youtube.com/embed/{{ videos.id }}" frameborder='0' allowfullscreen></iframe>
+                  <div class="logo pull-right">
+                    <img src="/img/youtube.png" height="30" />
+                  </div>
+                  <p>{{ videos.title }}</p>
+                </div>
+              </div>
+            </div>
+       
+            
             <div class="row">
               <div class="col-md-6">
                 <div class="well advert-well">
@@ -147,5 +162,34 @@
           $.material.init();
         });
       </script>
+      <script>$(function() {
+    
+      var $allVideos = $("iframe[src^='http://player.vimeo.com'], iframe[src^='https://www.youtube.com'], object, embed");
+  	    	
+    	$allVideos.each(function() {
+    	
+    	  $(this)
+    	    // jQuery .data does not work on object/embed elements
+    	    .attr('data-aspectRatio', this.height / this.width)
+    	    .removeAttr('height')
+    	    .removeAttr('width');
+    	
+    	});
+    	
+    	$(window).resize(function() {
+    	  
+    	  $allVideos.each(function() {
+    	  
+    	  var newWidth = $($(this).closest('.well')).width();
+    	  console.log(newWidth);
+    	    var $el = $(this);
+    	    $el
+    	        .width(newWidth)
+    	        .height(newWidth * $el.attr('data-aspectRatio'));
+    	  });
+    	
+    	}).resize();
+    });
+    </script>
     </body>
     </html>

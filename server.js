@@ -29,6 +29,9 @@ app.get("/:tag?", function (req, res) {
       function (asyncCallback) {
         return getAdverts(tag, asyncCallback);
       },
+      function (asyncCallback) {
+        return getVideos(tag, asyncCallback);
+      }
     ],
     function (err, results) {
       if(err) {
@@ -38,6 +41,7 @@ app.get("/:tag?", function (req, res) {
       res.locals.images  = results[0];
       res.locals.news    = results[1];
       res.locals.adverts = results[2].adverts;
+      res.locals.videos = results[3];
 
       var i = parseInt(Math.random() * res.locals.adverts.length);
       res.locals.advert = res.locals.adverts[i];
@@ -65,6 +69,16 @@ function getImages(query, callback) {
   });
    
   client.get("/images/" + encodeURIComponent(query), function (err, req, res, data) {
+    return callback(null, data || {});
+  });
+}
+
+function getVideos(query, callback) {
+  var client = restify.createJsonClient({
+    url: apiBaseUrl,
+  });
+   
+  client.get("/youtube/" + encodeURIComponent(query), function (err, req, res, data) {
     return callback(null, data || {});
   });
 }
