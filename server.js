@@ -34,6 +34,7 @@ app.listen(
 );
 
 var apiBaseUrl = process.env.API_URL || "http://localhost:8080";
+var perlApiBaseUrl = process.env.PERL_API_URL || "http://localhost:8081";
 
 function getImages(query, callback) {
   var client = restify.createJsonClient({
