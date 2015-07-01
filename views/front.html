@@ -29,7 +29,7 @@
       padding-right: 0 !important;
     }
 
-    .news-well img.thumb, .image-well img.thumb {
+    .modal-body img.thumb, .news-well img.thumb, .image-well img.thumb {
       width: 100%;
     }
 
@@ -171,12 +171,16 @@
             {% if news.leadtext %}
             <p>{{ news.leadtext }}</p>
             {% endif %}
-            {{ news.content | safe }}
+            <!-- {{ news.content | safe }} -->
+      <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#myModal">
+        Read more...
+      </button>
             <!-- <p>{{ news | json | safe }}</p> -->
             </div>
           </div>
           <div class="col-md-6">
             <div class="row">
+              {% if images && images.display_sizes %}
               <div class="col-md-6">
                 <div class="well image-well clearfix">
                   <img src="{{ images.display_sizes[0].uri }}" class="thumb" />
@@ -187,6 +191,9 @@
                 </div>
               </div>
               <div class="col-md-6">
+              {% else %}
+              <div class="col-md-12">
+              {% endif %}
                 <div class="well text-center">
                   <a href="{{ advert.redirect_url | safe }}"><img src="{{ advert.image_url | safe }}" /></a><br />
                   <p>{{ advert.name | safe }}</p>
@@ -223,11 +230,41 @@
         </div>
       </div>
 
+
+
+      <!-- Modal -->
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              {% if news.title %}
+              <h4 class="modal-title" id="myModalLabel">{{ news.title }}</h4>
+              {% endif %}
+            </div>
+            <div class="modal-body">
+              {% if news.imageUrl %}
+              <img src="{{ news.imageUrl | safe }}" class="thumb" />
+              {% endif %}
+              <small>{{ news.date }}</small>
+              {% if news.leadtext %}
+              <p>{{ news.leadtext }}</p>
+              {% endif %}
+              {{ news.content | safe }}
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- {{ images | json | safe }} -->
 
       <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
       <script src="/js/jquery.min.js"></script>
       <!-- Include all compiled plugins (below), or include individual files as needed -->
+      <script src="/js/bootstrap.min.js"></script>
       <script src="/js/material.min.js"></script>
       <script>
         $(function () {
