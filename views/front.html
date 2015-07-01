@@ -159,25 +159,37 @@
 
       <div class="container">
         <div class="row">
+          
           <div class="col-md-6">
-            <div class="well news-well">
-            {% if news.imageUrl %}
-            <img src="{{ news.imageUrl | safe }}" class="thumb" />
-            {% endif %}
-            {% if news.title %}
-            <h2>{{ news.title }}</h2>
-            {% endif %}
-            <small>{{ news.date }}</small>
-            {% if news.leadtext %}
-            <p>{{ news.leadtext }}</p>
-            {% endif %}
-            <!-- {{ news.content | safe }} -->
-      <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#myModal">
-        Read more...
-      </button>
-            <!-- <p>{{ news | json | safe }}</p> -->
-            </div>
-          </div>
+            
+        
+              <div class="well news-well">
+              {% if news.imageUrl %}
+              <img src="{{ news.imageUrl | safe }}" class="thumb" />
+              {% endif %}
+              {% if news.title %}
+              <h2>{{ news.title }}</h2>
+              {% endif %}
+              <small>{{ news.date }}</small>
+              {% if news.leadtext %}
+              <p>{{ news.leadtext }}</p>
+              {% endif %}
+              <!-- {{ news.content | safe }} -->
+              <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#myModal">
+                Read more...
+              </button>
+              <!-- <p>{{ news | json | safe }}</p> -->
+              </div>
+            
+                <div class="well image-well clearfix">
+                  <img src="{{ instagram.images.standard_resolution.url }}" class="thumb" />
+                  <p>{{ instagram.caption.text }}</p>
+                </div>
+              </div>
+            
+            
+          
+          
           <div class="col-md-6">
             <div class="row">
               {% if images && images.display_sizes %}

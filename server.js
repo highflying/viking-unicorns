@@ -45,6 +45,9 @@ function homePage(req, res) {
       },
       function (asyncCallback) {
         return getMusic(tag, asyncCallback);
+      },
+      function (asyncCallback) {
+        return getInstagram(tag, asyncCallback);
       }
     ],
     function (err, results) {
@@ -57,6 +60,7 @@ function homePage(req, res) {
       res.locals.adverts = results[2].adverts;
       res.locals.videos = results[3];
       res.locals.music = results[4];
+      res.locals.instagram = results [5];
 
       if(res.locals.adverts) {
         var i = parseInt(Math.random() * res.locals.adverts.length);
@@ -102,6 +106,15 @@ function getVideos(query, callback) {
   });
 }
 
+function getInstagram(query, callback) {
+  var client = restify.createJsonClient({
+    url: apiBaseUrl,
+  });
+   
+  client.get("/instagram/" + encodeURIComponent(query), function (err, req, res, data) {
+    return callback(null, data || {});
+  });
+}
 
 function getNews(query, callback) {
   var client = restify.createJsonClient({
@@ -130,6 +143,7 @@ function getMusic(query, callback) {
     return callback(null, data || {});
   });
 }
+
 
 // function getNews(query, callback) {
 //   var client = restify.createJsonClient({
