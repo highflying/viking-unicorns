@@ -183,13 +183,15 @@
             
                 <div class="well image-well clearfix">
                   <img src="{{ instagram.images.standard_resolution.url }}" class="thumb" />
-                  <p>{{ instagram.caption.text }}</p>
+                    <div class="logo pull-right">
+                    <img src="/img/Instagram_Logo.png" href="{{ instagram.link }}"  height="50" />
+                  </div>
+                  <a href="{{ instagram.link }}" style="color: black;">{{ instagram.caption.text }}</a>
+                  
                 </div>
               </div>
             
-            
-          
-          
+
           <div class="col-md-6">
             <div class="row">
               {% if images && images.display_sizes %}
