@@ -21,6 +21,23 @@
       display:         flex;
     }
 
+    .image-well {
+      padding-left: 0 !important;
+      padding-top: 0 !important;
+      padding-right: 0 !important;
+    }
+
+    .image-well img.thumb {
+      width: 100%;
+    }
+
+    .advert-well {
+      padding: 0 !important;
+    }
+
+    .advert-well img {
+      padding: 0 !important;
+    }
   </style>
 
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -80,26 +97,25 @@
         <div class="row row-eq-height">
           <div class="col-md-6">
             <div class="well">
-              Box1
+            <p>{{ news.text }}</p>
             </div>
           </div>
           <div class="col-md-6">
             <div class="row">
-              <div class="col-md-6">
-                <div class="well">
-                  Box2
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="well">
-                  Box3
+              <div class="col-md-12">
+                <div class="well image-well clearfix">
+                  <img src="{{ images.display_sizes[0].uri }}" class="thumb" />
+                  <div class="logo pull-right">
+                    <img src="/img/gettyimages.svg" height="30" />
+                  </div>
+                  <p>{{ images.title }}</p>
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-md-6">
-                <div class="well">
-                  Box4
+                <div class="well advert-well">
+                  <img src="/img/advert.png" />
                 </div>
               </div>
               <div class="col-md-6">
@@ -112,7 +128,7 @@
         </div>
       </div>
 
-      {{ images | json | safe }}
+      <!-- {{ images | json | safe }} -->
 
       <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
       <script src="/js/jquery.min.js"></script>

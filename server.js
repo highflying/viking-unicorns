@@ -1,6 +1,7 @@
 var express = require("express");
 var swig    = require("swig");
 var restify = require('restify');
+var async   = require("async");
 
 var app = express();
 
@@ -17,11 +18,29 @@ if(app.get("env") === "development") {
 app.get("/:tag?", function (req, res) {
   var tag = req.params.tag || "cats";
 
-  return getImages(tag, function (err, data) {
-    res.locals.images = data;
+  async.parallel(
+    [
+      function (asyncCallback) {
+        return getImages(tag, function (err, data) {
+          console.log(data);
+          return asyncCallback(err, data);
+        });
+      },
+      function (asyncCallback) {
+        return getNews(tag, function (err, data) {
+          return asyncCallback(err, data);
+        });
+      }
+    ],
+    function (err, results) {
+      console.log(err);
+      console.log(results);
+      res.locals.images = results[0];
+      res.locals.news = results[1];
 
-    return res.render("front.html");
-  });
+      return res.render("front.html");
+    }
+  );
 });
 
 app.set("port", process.env.PORT || 3000);
@@ -41,7 +60,17 @@ function getImages(query, callback) {
     url: apiBaseUrl,
   });
    
-  client.get("/echo/" + encodeURIComponent(query), function (err, req, res, data) {
+  client.get("/images/?q=" + encodeURIComponent(query), function (err, req, res, data) {
+    return callback(err, data);
+  });
+}
+
+function getNews(query, callback) {
+  var client = restify.createJsonClient({
+    url: perlApiBaseUrl,
+  });
+   
+  client.get("/v1/article/" + encodeURIComponent(query), function (err, req, res, data) {
     return callback(err, data);
   });
 }
