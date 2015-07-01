@@ -57,6 +57,26 @@
     .light_teal {
         background-color: #72E9CA;
     }
+    
+    .info-btn {
+        padding-right:10px;
+    }
+    
+    html, body, .container {
+        height: 100%;
+    }
+    .container {
+         position: relative;
+          top: 50%;
+          transform: translateY(-50%);
+        /*display: table;*/
+        /*vertical-align: middle;*/
+    }
+    .vertical-center-row {
+        display: table-cell;
+        vertical-align: middle;
+    }
+  
   </style>
 
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -68,12 +88,36 @@
     </head>
     <body>
       
-        <div class="navbar-header">
-        <div class="pull-right">
+       
+        <div class="info-btn pull-right">
               <button class="btn btn-white btn-raised">What is Viking Unicorn?</button>
           </div>
-        </div>
     
+    <!--<div class="middle">-->
+    <div class="container">
+        <div class="row vertical-center-row">
+            <div class="col-lg-12">
+                <div class="row ">
+                    <div class="col-xs-4 col-xs-offset-4">
+                        <img src="/img/logo_270.png" />
+                        <div>
+                        <h2>Tell the Viking Unicorn what you want..</h2>
+                        </div>
+                          <form class="form-horizontal" method="get" action="/search/">
+                              <div class="input-group">
+                                <input name="q" type="text" class="form-control" placeholder="Search" value="{{ query }}">
+                                  <span class="input-group-addon" id="basic-addon2">
+                                      <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                  </span>
+                        
+                            </div>
+                          </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--</div>-->
         
   
 
