@@ -15,8 +15,12 @@ if(app.get("env") === "development") {
   swig.setDefaults({ cache: false });
 }
 
-app.get("/:tag?", function (req, res) {
-  var tag = req.params.tag || "cats";
+app.get("/:tag?", homePage);
+app.get("/", homePage);
+
+function homePage(req, res) {
+  var tag = req.params.tag || req.query.q || "cats";
+  res.locals.query = tag;
 
   async.parallel(
     [
@@ -39,13 +43,17 @@ app.get("/:tag?", function (req, res) {
       res.locals.news    = results[1];
       res.locals.adverts = results[2].adverts;
 
-      var i = parseInt(Math.random() * res.locals.adverts.length);
-      res.locals.advert = res.locals.adverts[i];
+      if(res.locals.adverts) {
+        var i = parseInt(Math.random() * res.locals.adverts.length);
+        res.locals.advert = res.locals.adverts[i];
+      } else {
+        res.locals.advert = {};
+      }
 
       return res.render("front.html");
     }
   );
-});
+}
 
 app.set("port", process.env.PORT || 3000);
 
