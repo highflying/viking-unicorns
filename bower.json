@@ -1,0 +1,17 @@
+{
+  "name": "viking-unicorns",
+  "version": "1.0.0",
+  "authors": [
+    "Ben Rogers"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-material-design": "~0.3.0"
+  }
+}
