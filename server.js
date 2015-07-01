@@ -21,22 +21,23 @@ app.get("/:tag?", function (req, res) {
   async.parallel(
     [
       function (asyncCallback) {
-        return getImages(tag, function (err, data) {
-          console.log(data);
-          return asyncCallback(err, data);
-        });
+        return getImages(tag, asyncCallback);
       },
       function (asyncCallback) {
-        return getNews(tag, function (err, data) {
-          return asyncCallback(err, data);
-        });
-      }
+        return getNews(tag, asyncCallback);
+      },
+      function (asyncCallback) {
+        return getAdverts(tag, asyncCallback);
+      },
     ],
     function (err, results) {
-      console.log(err);
-      console.log(results);
-      res.locals.images = results[0];
-      res.locals.news = results[1];
+      if(err) {
+        console.error(err);
+      }
+
+      res.locals.images  = results[0];
+      res.locals.news    = results[1];
+      res.locals.adverts = results[2].adverts;
 
       return res.render("front.html");
     }
@@ -60,8 +61,8 @@ function getImages(query, callback) {
     url: apiBaseUrl,
   });
    
-  client.get("/images/?q=" + encodeURIComponent(query), function (err, req, res, data) {
-    return callback(err, data);
+  client.get("/images/" + encodeURIComponent(query), function (err, req, res, data) {
+    return callback(null, data || {});
   });
 }
 
@@ -71,6 +72,17 @@ function getNews(query, callback) {
   });
    
   client.get("/v1/article/" + encodeURIComponent(query), function (err, req, res, data) {
-    return callback(err, data);
+    return callback(null, data || {});
+  });
+}
+
+
+function getAdverts(query, callback) {
+  var client = restify.createJsonClient({
+    url: apiBaseUrl,
+  });
+   
+  client.get("/adverts/" + encodeURIComponent(query), function (err, req, res, data) {
+    return callback(null, data || {});
   });
 }
