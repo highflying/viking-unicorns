@@ -7,6 +7,8 @@
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
   <title>Unicorn Vikings</title>
 
+  <link rel="shortcut icon" href="/img/favicon.ico" />
+
   <!-- Bootstrap -->
   <link href="/css/bootstrap.min.css" rel="stylesheet">
   <link href="/css/roboto.min.css" rel="stylesheet">
@@ -119,9 +121,14 @@
                 </div>
               </div>
               <div class="col-md-6">
-                <div class="well">
-                  <a href="{{ adverts[0].redirect_url }}"><img src="{{ adverts[0].image_url }}" /></a><br />
-                  <p>{{ adverts[0].name }}</p>
+                <div class="well text-center">
+                  <a href="{{ advert.redirect_url | safe }}"><img src="{{ advert.image_url | safe }}" /></a><br />
+                  <p>{{ advert.name | safe }}</p>
+                  &euro;{{ advert.price }}
+                  {% if advert.has_discount && advert.old_price %}
+                  (was &euro;{{ advert.old_price }})
+                  {% endif %}
+                  <!-- {{ advert | json | safe }} -->
                 </div>
               </div>
             </div>

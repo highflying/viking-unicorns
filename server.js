@@ -39,6 +39,9 @@ app.get("/:tag?", function (req, res) {
       res.locals.news    = results[1];
       res.locals.adverts = results[2].adverts;
 
+      var i = parseInt(Math.random() * res.locals.adverts.length);
+      res.locals.advert = res.locals.adverts[i];
+
       return res.render("front.html");
     }
   );
